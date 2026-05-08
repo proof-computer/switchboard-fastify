@@ -8,9 +8,12 @@ published on npmjs.com yet.
 ## Install
 
 ```sh
-npm install github:proof-computer/switchboard-fastify#main fastify
+npm install github:proof-computer/switchboard-fastify#v0.1.0 fastify
 npm install -D typescript tsx @types/node
 ```
+
+Use `#main` only when intentionally testing unreleased changes. npmjs.com
+publishing is prepared but not active yet.
 
 ## App
 
