@@ -8,7 +8,7 @@ published on npmjs.com yet.
 ## Install
 
 ```sh
-npm install github:proof-computer/switchboard-fastify#v0.1.0 fastify
+npm install github:proof-computer/switchboard-fastify#v0.1.2 fastify
 npm install -D typescript tsx @types/node
 ```
 
