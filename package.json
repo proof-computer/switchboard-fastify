@@ -1,6 +1,6 @@
 {
   "name": "@proofcomputer/switchboard-fastify",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Fastify adapter for Switchboard Acurast webserver jobs.",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "pack:dry-run": "npm pack --dry-run --json"
   },
   "dependencies": {
-    "@proofcomputer/switchboard-sdk": "github:proof-computer/switchboard-sdk#v0.1.2"
+    "@proofcomputer/switchboard-sdk": "github:proof-computer/switchboard-sdk#v0.1.3"
   },
   "peerDependencies": {
     "fastify": "^5.0.0"
