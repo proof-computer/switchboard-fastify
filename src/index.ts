@@ -10,10 +10,11 @@ import {
   createSwitchboardRuntime,
   SWITCHBOARD_CHALLENGE_PATH,
   SWITCHBOARD_STATUS_PATH,
+  SWITCHBOARD_UPSTREAM_ADMISSION_PATH,
   type SwitchboardChallengeConfig,
   type SwitchboardRuntime,
   type SwitchboardRuntimeOptions
-} from "@proofcomputer/switchboard-sdk";
+} from "@proof-computer/switchboard-runtime";
 
 export interface SwitchboardFastifyPluginOptions extends Partial<SwitchboardChallengeConfig> {
   runtime?: SwitchboardRuntime;
@@ -49,6 +50,15 @@ export const switchboardFastify: FastifyPluginAsync<SwitchboardFastifyPluginOpti
       return sendChallengeResult(reply, result);
     });
   }
+
+  fastify.post(SWITCHBOARD_UPSTREAM_ADMISSION_PATH, async (request, reply) => {
+    const result = await runtime.buildUpstreamAdmissionProbeResult((request.body ?? {}) as Record<string, unknown>);
+    reply.code(result.statusCode);
+    for (const [name, value] of Object.entries(result.headers)) {
+      reply.header(name, value);
+    }
+    return result.body;
+  });
 
   if (options.status !== false) {
     const status = options.status ?? {};

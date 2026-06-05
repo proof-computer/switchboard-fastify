@@ -5,8 +5,9 @@ import Fastify from "fastify";
 import {
   createSwitchboardRuntime,
   SWITCHBOARD_CHALLENGE_PATH,
-  SWITCHBOARD_STATUS_PATH
-} from "@proofcomputer/switchboard-sdk";
+  SWITCHBOARD_STATUS_PATH,
+  SWITCHBOARD_UPSTREAM_ADMISSION_PATH
+} from "@proof-computer/switchboard-runtime";
 
 import { switchboardFastify } from "../src/index.js";
 
@@ -132,6 +133,26 @@ describe("switchboardFastify", () => {
 
       const health = await app.inject({ method: "GET", url: "/health" });
       assert.equal(health.statusCode, 404);
+    } finally {
+      await app.close();
+    }
+  });
+
+  it("mounts the upstream admission probe endpoint", async () => {
+    const app = Fastify({ logger: false });
+    await app.register(switchboardFastify, {
+      runtime: createSwitchboardRuntime()
+    });
+
+    try {
+      const response = await app.inject({
+        method: "POST",
+        url: SWITCHBOARD_UPSTREAM_ADMISSION_PATH,
+        payload: {}
+      });
+      assert.equal(response.statusCode, 400);
+      assert.equal(response.headers["cache-control"], "no-store");
+      assert.equal(response.json().error, "invalid_probe_request");
     } finally {
       await app.close();
     }
