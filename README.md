@@ -18,7 +18,7 @@ publishing is prepared but not active yet.
 ## App
 
 ```ts
-import { serveSwitchboardFastify } from "@proofcomputer/switchboard-fastify";
+import { serveSwitchboardFastify } from "@proof-computer/switchboard-fastify";
 
 void serveSwitchboardFastify(async (app) => {
   app.get("/", async (_request, reply) => {
